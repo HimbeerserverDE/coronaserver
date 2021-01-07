@@ -108,6 +108,8 @@ minetest.register_on_leaveplayer(function(player)
     minetest.chat_send_all(coronaserver.get_player_name(name) .. "has left the Server.")
 end)
 minetest.register_on_chat_message(function(name, message)
+    local player = minetest.get_player_by_name(name)
+    if not player or not minetest.check_player_privs(name, {shout = true}) then return end
     minetest.chat_send_all(coronaserver.get_player_name(name, {"<", ">"}) .. message)
     minetest.log("[CHAT] <" .. name .. "> " .. message)
     return true
